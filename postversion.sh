@@ -8,6 +8,6 @@ echo "Creating new change log"
 ./node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s -r 0
 
 echo "Commit change log"
-#git add CHANGELOG.md
-#git commit -m "chore(release): prepare for release"
+git add CHANGELOG.md
+git commit -m "chore(release): prepare for release"
 
