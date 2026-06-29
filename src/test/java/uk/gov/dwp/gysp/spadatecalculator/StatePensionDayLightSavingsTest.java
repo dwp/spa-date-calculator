@@ -3,11 +3,9 @@
  */
 package uk.gov.dwp.gysp.spadatecalculator;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,9 +13,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.data.mongodb.port = 0")
 public class StatePensionDayLightSavingsTest {
 
