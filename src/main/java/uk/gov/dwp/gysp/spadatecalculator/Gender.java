@@ -1,24 +1,28 @@
 package uk.gov.dwp.gysp.spadatecalculator;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum Gender {
-    FEMALE("Female"), MALE("Male");
+  FEMALE("Female"),
+  MALE("Male");
 
-    private final String genderType;
+  private final String genderType;
 
-    private Gender(final String genderType) {
-        this.genderType = genderType;
+  Gender(final String genderType) {
+    this.genderType = genderType;
+  }
+
+  public static Gender genderOf(final String genderParameter) {
+    for (final Gender gender : Gender.values()) {
+      if (StringUtils.equals(gender.getGender(), genderParameter)) {
+        return gender;
+      }
     }
+    
+    return null;
+  }
 
-    public static Gender genderOf(final String gender) {
-        for (Gender value : Gender.values()) {
-            if (value.getGender().equals(gender)) {
-                return value;
-            }
-        }
-        return null;
-    }
-
-    public String getGender() {
-        return this.genderType;
-    }
+  public String getGender() {
+    return this.genderType;
+  }
 }
