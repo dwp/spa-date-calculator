@@ -1,8 +1,6 @@
 package uk.gov.dwp.gysp.spadatecalculator;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,10 +48,7 @@ public interface StatePensionDateTestData extends LocalDateUtils {
     final Gender gender,
     final LocalDate dob
   ) {
-    final Map<String, Date> spaMap = service.findSpDate(gender, toDate(dob));
-
-    return toLocalDate(spaMap.values()
-                             .iterator()
-                             .next());
+    final StatePensionResult result = service.findSpDate(gender, toDate(dob));
+    return toLocalDate(result.statePensionDate());
   }
 }

@@ -10,7 +10,12 @@ import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
 
 @Service
 @PropertySource("classpath:spatable.properties")
@@ -32,12 +37,6 @@ public class SpDateCalculator {
 
     private static final long MONTHS_TO_ADD = 4;
     
-    private static final String MATURE_CLAIM = "Mature claim";
-    
-    private static final String PRE_MATURE_CLAIM = "Pre-Mature claim";
-    
-    private static final String NSP_CLAIM = "Non state pension customer";
-
     private static final Logger LOGGER = LoggerFactory.getLogger(SpDateCalculator.class);
 
     @Value("${equalisationPeriod.dobrangeend}")
@@ -62,12 +61,10 @@ public class SpDateCalculator {
     @Value("${increaseInPensionAgePeriod.spdates}")
     private Date[] spDates;
 
-    public Map<String,Date> findSpDate(final Gender gender, final Date dob) {
-        
-        Map<String,Date> spaMap= new HashMap<>();
+    public StatePensionResult findSpDate(final Gender gender, final Date dob) {
 
         if (gender.equals(Gender.MALE) && withinRange(dob, FIRST_SUPPORTED_DATE_FOR_MEN, END_OF_EQUALISATION_PERIOD)) {
-            Date spadate = calculateSpDateBasedOnBirthday(dob, AGE_65);
+            final Date spadate = calculateSpDateBasedOnBirthday(dob, AGE_65);
             return getSpaDatewithStatus(spadate);
         }
 
@@ -89,17 +86,15 @@ public class SpDateCalculator {
         }
 
         if (beforeFirstSupportedDate(gender, dob)) {
-            spaMap.put(NSP_CLAIM, null);
-            return spaMap;
+            return new StatePensionResult(ClaimStatus.NON_STATE_PENSION_CUSTOMER, null);
         }
 
         if (dob.after(LAST_SUPPORTED_CALCULATION_DATE)) {
-            spaMap.put(PRE_MATURE_CLAIM, null);
-            return spaMap;
+            return new StatePensionResult(ClaimStatus.PRE_MATURE_CLAIM, null);
         }
 
         LOGGER.error("Spa date not found for gender {} and dob {}",gender.getGender(),dob);
-        return null;
+        throw new IllegalStateException("Spa date not found for gender " + gender.getGender() + " and dob " + dob);
 
     }
 
@@ -117,14 +112,11 @@ public class SpDateCalculator {
         return (statePensionDate.isBefore(currentDate) || statePensionDate.equals(currentDate) || eligibleDate.equals(statePensionDate) || eligibleDate.isAfter(statePensionDate));
     }
 
-    public Map<String, Date> getSpaDatewithStatus(final Date spaDate) {
-        Map<String, Date> spaMap = new HashMap<>();
+    public StatePensionResult getSpaDatewithStatus(final Date spaDate) {
         if (isClaimMature(spaDate, LocalDate.now())) {
-            spaMap.put(MATURE_CLAIM, spaDate);
-            return spaMap;
+            return new StatePensionResult(ClaimStatus.MATURE_CLAIM, spaDate);
         } else {
-            spaMap.put(PRE_MATURE_CLAIM, spaDate);
-            return spaMap;
+            return new StatePensionResult(ClaimStatus.PRE_MATURE_CLAIM, spaDate);
         }
     }
 

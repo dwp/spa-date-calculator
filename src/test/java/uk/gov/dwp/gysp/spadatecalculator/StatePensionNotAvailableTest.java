@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -65,19 +63,11 @@ public class StatePensionNotAvailableTest implements StatePensionDateTestData {
   }
 
   private void assertStatePensionDateNotAvailableFor(final Gender gender, final LocalDate dob) {
-    // When
-
-    final Map<String, Date> spaMap = this.service.findSpDate(gender, toDate(dob));
-    final Date statePensionDate = spaMap.values()
-                                        .iterator()
-                                        .next();
-
-    // Then
     final String errorDescription = String.format(
       "State Pension Age should not be available for %s born on %s",
       gender, format(dob)
     );
-    assertNull(statePensionDate, errorDescription);
+    assertNull(this.service.findSpDate(gender, toDate(dob)).statePensionDate(), errorDescription);
   }
 
 }
