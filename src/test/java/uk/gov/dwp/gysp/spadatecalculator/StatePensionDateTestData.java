@@ -46,10 +46,12 @@ public interface StatePensionDateTestData extends LocalDateUtils {
   }
 
   default LocalDate calculateStatePensionDate(
-    final SpDateCalculator service, final Gender gender,
+    final SpDateCalculator service,
+    final Gender gender,
     final LocalDate dob
   ) {
     final Map<String, Date> spaMap = service.findSpDate(gender, toDate(dob));
+
     return toLocalDate(spaMap.values()
                              .iterator()
                              .next());
