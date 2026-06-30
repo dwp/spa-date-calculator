@@ -3,21 +3,17 @@
  */
 package uk.gov.dwp.gysp.spadatecalculator;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 import java.util.TimeZone;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(properties = "spring.data.mongodb.port = 0")
 public class StatePensionDayLightSavingsTest {
 
@@ -31,11 +27,8 @@ public class StatePensionDayLightSavingsTest {
         now.set(Calendar.DAY_OF_MONTH, 1);
         Date dob = now.getTime();
 
-        Map<String, Date> dates = service.findSpDate(Gender.MALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-10-01", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.MALE, dob);
+        assertEquals("2018-10-01", getFormattedDate(actual.statePensionDate()));
     }
 
     @Test
@@ -45,11 +38,8 @@ public class StatePensionDayLightSavingsTest {
         now.set(Calendar.DAY_OF_MONTH, 10);
         Date dob = now.getTime();
 
-        Map<String, Date> dates = service.findSpDate(Gender.MALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-10-10", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.MALE, dob);
+        assertEquals("2018-10-10", getFormattedDate(actual.statePensionDate()));
     }
 
     @Test
@@ -59,11 +49,8 @@ public class StatePensionDayLightSavingsTest {
         now.set(Calendar.DAY_OF_MONTH, 5);
         Date dob = now.getTime();
 
-        Map<String, Date> dates = service.findSpDate(Gender.MALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-10-05", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.MALE, dob);
+        assertEquals("2018-10-05", getFormattedDate(actual.statePensionDate()));
     }
 
     @Test
@@ -73,11 +60,8 @@ public class StatePensionDayLightSavingsTest {
         now.set(Calendar.DAY_OF_MONTH, 28);
         Date dob = now.getTime();
 
-        Map<String, Date> dates = service.findSpDate(Gender.MALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-10-28", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.MALE, dob);
+        assertEquals("2018-10-28", getFormattedDate(actual.statePensionDate()));
     }
 
     @Test
@@ -90,11 +74,8 @@ public class StatePensionDayLightSavingsTest {
 
         now.set(Calendar.YEAR, 2018);
 
-        Map<String, Date> dates = service.findSpDate(Gender.MALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-03-04", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.MALE, dob);
+        assertEquals("2018-03-04", getFormattedDate(actual.statePensionDate()));
     }
 
     @Test
@@ -105,11 +86,8 @@ public class StatePensionDayLightSavingsTest {
         now.set(Calendar.MONTH, 2);
         Date dob = now.getTime();
 
-        Map<String, Date> dates = service.findSpDate(Gender.MALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-03-26", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.MALE, dob);
+        assertEquals("2018-03-26", getFormattedDate(actual.statePensionDate()));
     }
 
     @Test
@@ -120,11 +98,8 @@ public class StatePensionDayLightSavingsTest {
         now.set(Calendar.MONTH, 3);
         Date dob = now.getTime();
 
-        Map<String, Date> dates = service.findSpDate(Gender.MALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-04-19", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.MALE, dob);
+        assertEquals("2018-04-19", getFormattedDate(actual.statePensionDate()));
     }
 
 
@@ -136,11 +111,8 @@ public class StatePensionDayLightSavingsTest {
         now.set(Calendar.MONTH, 10);
         Date dob = now.getTime();
 
-        Map<String, Date> dates = service.findSpDate(Gender.FEMALE, dob);
-
-        assertEquals(1, dates.size());
-        Date actualDate = dates.values().iterator().next();
-        assertEquals("2018-07-06", getFormattedDate(actualDate));
+        StatePensionResult actual = service.findSpDate(Gender.FEMALE, dob);
+        assertEquals("2018-07-06", getFormattedDate(actual.statePensionDate()));
     }
 
     private Calendar getCalendar() {

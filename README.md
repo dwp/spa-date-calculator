@@ -12,7 +12,9 @@ If @ComponentScan is already in use it will need to be expanded, for example:
 
 This class calculates entitlement to state pension using gender and date of birth. 
 
-Depending on the gender(Gender.MALE or Gender.FEMALE) and dob provided a map will be returned containing a state pension entitlement date and whether there is a current entitlement(Mature Claim or Pre-mature Claim).
+Depending on the [Gender.java](src/main/java/uk/gov/dwp/gysp/spadatecalculator/Gender.java) of `FEMALE` or `MALE`, and 
+the provided date of birth (DOB), a map will be returned containing the state pension entitlement date and whether there 
+is a current entitlement (Mature Claim or Pre-mature Claim).
 
 For example: 
 
@@ -20,7 +22,11 @@ For example:
 
 `SpDateCalculator.findSpDate(dob, Gender.MALE)`
 
-will return {spaDate=1627794000000, message=Pre-Mature claim}. Parsed spaDate is Sun Aug 01 06:00:00 BST 2021.
+will return:
+
+`{spaDate=1627794000000, message=Pre-Mature claim}`
+
+Which when parsed, the `spaDate` is `Sun Aug 01 06:00:00 BST 2021`.
 
 `final Date dob = new GregorianCalendar(1951, Calendar.AUGUST, 01).getTime();`
 

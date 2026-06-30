@@ -2,11 +2,10 @@ package uk.gov.dwp.gysp.spadatecalculator;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import org.junit.Test;
-import uk.gov.dwp.gysp.spadatecalculator.Gender;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GenderTest {
 
@@ -27,7 +26,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertEquals("Result not as expected.", Gender.FEMALE, result);
+		assertEquals(Gender.FEMALE, result);
 	}
 
 	@Test
@@ -39,7 +38,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertNull("Result should be null as value cannot be converted to java gender value.", result);
+		assertNull(result);
 	}
 
 	@Test
@@ -51,7 +50,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertNull("Result should be null as value cannot be converted to java gender value.", result);
+		assertNull(result);
 	}
 
 	@Test
@@ -63,7 +62,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertEquals("Result not as expected.", Gender.MALE, result);
+		assertEquals(Gender.MALE, result);
 	}
 
 	@Test
@@ -75,7 +74,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertNull("Result should be null as value cannot be converted to java gender value.", result);
+		assertNull(result);
 	}
 
 	@Test
@@ -87,7 +86,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertNull("Result should be null as value cannot be converted to java gender value.", result);
+		assertNull(result);
 	}
 
 	@Test
@@ -99,7 +98,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertNull("Result should be null as value cannot be converted to java gender value.", result);
+		assertNull(result);
 	}
 
 	@Test
@@ -111,7 +110,7 @@ public class GenderTest {
 		final Gender result = Gender.genderOf(input);
 
 		// Then
-		assertNull("Result should be null as value cannot be converted to java gender value.", result);
+		assertNull(result);
 	}
 
 }
